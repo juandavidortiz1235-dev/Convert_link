@@ -52,7 +52,6 @@ app.post('/api/convert', (req, res) => {
   if (format === 'mp3') {
     ytDlpArgs = [
       '--ffmpeg-location', './ffmpeg',
-      '--cookies-from-browser', 'chrome',
       '--concurrent-fragments', '8',
       '-x', 
       '--audio-format', 'mp3',
@@ -64,7 +63,6 @@ app.post('/api/convert', (req, res) => {
     // mp4
     ytDlpArgs = [
       '--ffmpeg-location', './ffmpeg',
-      '--cookies-from-browser', 'chrome',
       '--concurrent-fragments', '8',
       '-f', 'best[height<=720][ext=mp4]/best[ext=mp4]/b',
       '--merge-output-format', 'mp4',
@@ -90,8 +88,11 @@ app.post('/api/convert', (req, res) => {
       }
   });
 
+  let stderrLogs = '';
   downloadProc.stderr.on('data', (data) => {
-      // console.error(`[yt-dlp error]: ${data}`);
+      const text = data.toString();
+      stderrLogs += text;
+      console.error(`[yt-dlp error]: ${text}`);
   });
 
   downloadProc.on('close', (dlCode) => {
@@ -107,7 +108,8 @@ app.post('/api/convert', (req, res) => {
         console.log(`Download complete: ${downloadedFile}`);
         return res.json({ success: true, downloadUrl: `/api/download/${encodeURIComponent(downloadedFile)}` });
     } else {
-        return res.status(500).json({ error: 'Error durante la verificación de la URL o el proceso falló.' });
+        console.error('Proceso falló. Logs de error de yt-dlp:\n', stderrLogs);
+        return res.status(500).json({ error: 'Error durante la verificación de la URL o el proceso falló. Revisa los logs del servidor.' });
     }
   });
 });
