@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Media Downloader - MP3 & MP4</title>
+    <meta name="description" content="Descarga de videos y audios de YouTube, Facebook, y TikTok con alta calidad y diseño moderno. Convertidor de MP3 y MP4 gratis y rápido.">
+    <meta name="keywords" content="Universal Media Downloader, convertidor de mp3, convertidor de youtube, descargar mp3, convertidor mp4, descargar tiktok, facebook video">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Universal Media Downloader - MP3 & MP4">
+    <meta property="og:description" content="El mejor convertidor de MP3 para videos de YouTube, TikTok y Facebook. Fácil, rápido y gratis.">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="glass-container">
+        <header>
+            <h1>Media<span class="highlight">Sync</span></h1>
+            <p>Pega tu link de Youtube, Facebook o TikTok para descargarlo al instante.</p>
+        </header>
+
+        <form id="converter-form" autocomplete="off">
+            <div class="input-group">
+                <input type="url" id="media-url" placeholder="Ej: https://www.youtube.com/watch?v=..." required>
+                <div class="focus-border"></div>
+            </div>
+
+            <div class="format-selection">
+                <label class="radio-card">
+                    <input type="radio" name="format" value="mp4" checked>
+                    <div class="card-content">
+                        <span class="icon">🎬</span>
+                        <span class="title">Video MP4</span>
+                    </div>
+                </label>
+                <label class="radio-card">
+                    <input type="radio" name="format" value="mp3">
+                    <div class="card-content">
+                        <span class="icon">🎵</span>
+                        <span class="title">Audio MP3</span>
+                    </div>
+                </label>
+            </div>
+
+            <button type="submit" id="download-btn">
+                <span class="btn-text">Extraer y Descargar</span>
+                <span class="loader hidden"></span>
+            </button>
+        </form>
+
+        <div id="status-message" class="hidden"></div>
+        
+        <div id="progress-container" class="hidden">
+            <div class="progress-bar-bg">
+                <div id="progress-bar-fill" class="progress-bar-fill"></div>
+            </div>
+            <p id="progress-text">0%</p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
